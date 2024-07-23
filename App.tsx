@@ -1,118 +1,45 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { View, Text } from 'react-native'
+import React from 'react'
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import WelcomeScreen from './android/app/src/screens/WelcomeScreen';
+import LoginScreen from './android/app/src/screens/LoginScreen';
+import SigninScreen from './android/app/src/screens/SigninScreen';
+import Home from './android/app/src/screens/Home';
+import ForgotPasswordScreen from './android/app/src/screens/ForgotPasswordScreen';
+import AppNavigator from './android/app/src/AppNavigator';
+const Stack = createStackNavigator();
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import { Provider } from 'react-redux'
+import store from './android/app/src/redux/store'
+import TabNavigation from './android/app/src/routers/navigations/TabNavigator';
+import TabNavigator from './android/app/src/routers/navigations/TabNavigator';
+import AppNavigator1 from './android/app/src/routers/navigations/TabNavigator';
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+  //   <NavigationContainer>
+  //   <Stack.Navigator initialRouteName="SigninScreen" screenOptions={{headerShown:false}}>
+  //   <Stack.Screen name="Home" component={Home} />
+  //     <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+  //     <Stack.Screen name="LoginScreen" component={LoginScreen} />
+  //     <Stack.Screen name="SigninScreen" component={SigninScreen} />
+  //     <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
+  //   </Stack.Navigator>
+  // </NavigationContainer>
+  <Provider store={store}>
+
+    <View style={{flex:1,backgroundColor:'white'}}>
+      {/* <AppNavigator/> */}
+      {/* <TabNavigator/> */}
+      <AppNavigator1/>
+  </View>
+  </Provider>
+  
+  )
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default App
